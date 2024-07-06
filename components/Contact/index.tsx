@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
+import MyMapComponent from "./Map";
+import dynamic from "next/dynamic";
 
 const Contact = () => {
   /**
@@ -15,7 +17,7 @@ const Contact = () => {
   if (!hasMounted) {
     return null;
   }
-
+  const MyMap = dynamic(() => import('./Map'), { ssr: false });
   return (
     <>
       {/* <!-- ===== Contact Start ===== --> */}
@@ -202,9 +204,34 @@ const Contact = () => {
               </div>
             </motion.div>
           </div>
+          
+          {/* implementing  */}
+          <motion.div
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  y: -20,
+                },
+
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                },
+              }}
+              initial="hidden"
+              whileInView="visible"
+              transition={{ duration: 1, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="animate_top w-full rounded-lg bg-white p-7.5 shadow-solid-8 dark:border dark:border-strokedark dark:bg-black md:w-[58%] lg:w-[69.5%] xl:p-15 mt-5"
+            >
+              {/* <h2 className="mb-15 text-3xl font-semibold text-black dark:text-white xl:text-sectiontitle2">
+                Send a message
+              </h2> */}              
+            </motion.div>
         </div>
       </section>
       {/* <!-- ===== Contact End ===== --> */}
+      {/* <MyMap /> */}
     </>
   );
 };
